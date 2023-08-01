@@ -40,7 +40,7 @@ app.get('/search', function (req, res) {
         // DHS USE CASES - Lacking due to collection data needing cleaning.
         //'b2072fda-e81c-a94b-0000-01887d931593',
         // TECH CRUNCH - Lacking due to collection data needing cleaning.
-        'f9de9f28-d5aa-ac14-0000-0189ad90ddd1',
+        //'f9de9f28-d5aa-ac14-0000-0189ad90ddd1',
         // BLENDED COLLECTION - Lacking due to collection data needing cleaning.
         // '17706ef4-955e-78d3-0000-0187e72d9cb8',
       ],
