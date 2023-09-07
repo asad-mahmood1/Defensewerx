@@ -20,29 +20,30 @@ class App extends React.Component {
       history: [],
       scoring: [0, 100],
       loading: false,
-      alert: [
+      /*alert: [
         {
           title: "CONCERNS FROM SOCIAL MEDIA CONTENT",
-          date: "2023-05-25",
+          date: "2023-08-25",
           score: 0.55,
           text: "Exemplary embodiments provide methods and systems for identifying safety and security threat concerns and safety and wellness climate concerns from social media content. Social media content is searched based identify threatening content and safety and wellness climate concerns relevant to an enterprise, rather than benign user information. Identification of enterprise-relevant threatening content triggers generation and transmission of a threat alert to a device associated with the enterprise. Identification of enterprise-relevant safety and wellness climate concerns in social media content causes information regarding the results to be aggregated and analyzed, with the results of the analysis and aggregation presented to a user via a graphical user interface (e.g., to view results over time).",
           author: ["Natasha Conahan ", "Andrew J. Reischer ", "Gary J. Margolis "],
         },
         {
           title: "GENERATING CYBER SECURITY THREAT INDEX",
-          date: "2023-05-25",
+          date: "2023-08-25",
           score: 0.55,
           text: "A new approach is proposed to support generating and presenting a single composite Cyber Security Threat Index (CSTI) to a user, wherein the CSTI provides the user with an indication of risk of cyber attacks globally and/or in the context of his/her current networking environment. First, various pools of operational data are collected over networks, systems, and/or products,",
           author: ["Shi Fleming"],
         },
         {
           title: "METHODS OF OPTIMAL PERSONALIZED DAILY HYDRATION",
-          date: "2023-05-25",
+          date: "2023-08-25",
           score: 0.5,
           text: "Devices and methods analyze daily hydration in an individual. An application can confirm if typical daily water intake by an individual participating is sufficient to maintain hydration and/or can determine an optimal personalized hydration plan to maintain or improve hydration for the individual.",
           author: ["Marchal ", "Eric"],
         },
-      ],
+      ],*/
+      alert: [],
     };
   }
 
@@ -220,6 +221,8 @@ class App extends React.Component {
         });
     });
   };
+
+  
 
   render() {
     return (

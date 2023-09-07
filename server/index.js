@@ -3,30 +3,36 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const port = process.env.port || 8080;
+const cors = require('cors');
+
+const { bucketRoutes } = require('./routes.js');
 
 app.use(express.static(path.join(__dirname, '../dist')));
 app.use(express.json());
 app.use(express.static('dist'));
+app.use(cors());
+app.use('/api/buckets', bucketRoutes);
 
 const Discovery = require('ibm-watson/discovery/v2');
 const { IamAuthenticator } = require('ibm-watson/auth');
 
 const discoveryClient = new Discovery({
-  authenticator: new IamAuthenticator({ apikey: 'C7AsMLQoLA44GypizMAjfAfKOT_6eX9PiBU-5cVRvEPI' }),
+  authenticator: new IamAuthenticator({ apikey: '_bS88b3IHD6v5nNzvS5Rr0ZVxAe6bKCtXa5owf7b2NhA' }),
   version: '2020-08-30',
   url: 'https://api.us-east.discovery.watson.cloud.ibm.com/instances/ba1faef3-e1f0-4ae5-b658-808cb6a00346',
 });
 
-// var ibm = require('ibm-cos-sdk');
-// var util = require('util');
+/*var ibm = require('ibm-cos-sdk');
+var util = require('util');
 
-// var config = {
-//   endpoint: process.env.endpoint,
-//   apiKeyId: process.env.cosapi,
-//   serviceInstanceId: process.env.token,
-// };
+var config = {
+  endpoint: process.env.endpoint,
+  apiKeyId: process.env.cosapi,
+  serviceInstanceId: process.env.token,
+  signatureVersion: 'iam',
+};
 
-// var cos = new ibm.S3(config);
+var cos = new ibm.S3(config);*/
 
 app.get('/search', function (req, res) {
   discoveryClient

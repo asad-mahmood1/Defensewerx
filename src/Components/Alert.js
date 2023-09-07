@@ -17,7 +17,7 @@ function Alert(props) {
                   {res.date},{' '}
                   <span className="ResponseCard-Score">
                     Threat Score:{' '}
-                    {Number(Math.ceil(res.score * 100))}%
+                    {Number(Math.ceil(res.threat_score * 100))}%
                   </span>
                 </div>
               </div>
