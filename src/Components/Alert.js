@@ -17,16 +17,16 @@ function Alert(props) {
                   {res.date},{' '}
                   <span className="ResponseCard-Score">
                     Threat Score:{' '}
-                    {Number(Math.ceil(res.threat_score * 100))}%
+                    {Number(Math.ceil(res.score * 100))}%
                   </span>
                 </div>
               </div>
               <div className="ResponseCard-Content">
-                {res.abstract || res.abstract_text || res.text}
+                {res.text}
               </div>
-              {res.author ? (
+              {res.threats ? (
                 <div className="ResponseCard-Author">
-                  Author(s): {res.author || 'undefined'}
+                  Threat(s): {res.threats || 'undefined'}
                 </div>
               ) : (
                 ''
@@ -40,3 +40,4 @@ function Alert(props) {
 }
 
 export default Alert;
+
