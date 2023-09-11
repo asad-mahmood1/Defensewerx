@@ -20,38 +20,86 @@ class App extends React.Component {
       history: [],
       scoring: [0, 100],
       loading: false,
-      /*alert: [
+      data: '',
+      alert: [
         {
           title: "CONCERNS FROM SOCIAL MEDIA CONTENT",
-          date: "2023-08-25",
+          date: "2023-05-25",
           score: 0.55,
           text: "Exemplary embodiments provide methods and systems for identifying safety and security threat concerns and safety and wellness climate concerns from social media content. Social media content is searched based identify threatening content and safety and wellness climate concerns relevant to an enterprise, rather than benign user information. Identification of enterprise-relevant threatening content triggers generation and transmission of a threat alert to a device associated with the enterprise. Identification of enterprise-relevant safety and wellness climate concerns in social media content causes information regarding the results to be aggregated and analyzed, with the results of the analysis and aggregation presented to a user via a graphical user interface (e.g., to view results over time).",
           author: ["Natasha Conahan ", "Andrew J. Reischer ", "Gary J. Margolis "],
         },
         {
           title: "GENERATING CYBER SECURITY THREAT INDEX",
-          date: "2023-08-25",
+          date: "2023-05-25",
           score: 0.55,
           text: "A new approach is proposed to support generating and presenting a single composite Cyber Security Threat Index (CSTI) to a user, wherein the CSTI provides the user with an indication of risk of cyber attacks globally and/or in the context of his/her current networking environment. First, various pools of operational data are collected over networks, systems, and/or products,",
           author: ["Shi Fleming"],
         },
         {
           title: "METHODS OF OPTIMAL PERSONALIZED DAILY HYDRATION",
-          date: "2023-08-25",
+          date: "2023-05-25",
           score: 0.5,
           text: "Devices and methods analyze daily hydration in an individual. An application can confirm if typical daily water intake by an individual participating is sufficient to maintain hydration and/or can determine an optimal personalized hydration plan to maintain or improve hydration for the individual.",
           author: ["Marchal ", "Eric"],
         },
-      ],*/
-      alert: [],
+      ],
     };
+    this.getData = this.getData.bind(this);
+    this.parseData = this.parseData.bind(this);
+    this.textCutter = this.textCutter.bind(this);
   }
 
   componentDidMount() {
     if (JSON.parse(localStorage.getItem('dw-state'))) {
       this.setState(JSON.parse(localStorage.getItem('dw-state')));
     }
+    console.log('mounted')
+    this.getData();
   }
+
+
+  async getData(){
+    let url = '/alert';
+    let data = await axios.get(url)
+    .then(function(res){
+      console.log('results: ', res.data);
+      return res.data;
+    })
+    .catch(function(err){
+      console.log('err: ', err);
+    })
+    this.parseData(data)
+  }
+
+  textCutter(text){
+    text = text.substring(2, text.length-2);
+    text=text.replace(/\\n/g, '')
+    text=text.replace(/\\t/g, ' ')
+    text=text.replace(/\\xa/g, '')
+    
+    return text;
+  }
+
+
+  parseData(results){
+    console.log('parsing')
+    let Alerts = [];
+      for(let i = 0; i < results.length; i++){
+        let newAlert = {};
+          let text = results[i].text;
+          text = this.textCutter(text);
+          newAlert.title = results[i].title
+          newAlert.date = results[i].date
+          newAlert.score = Number(results[i].threat_score).toFixed(2);
+          newAlert.text = text
+          newAlert.threats = results[i].threats
+        Alerts.push(newAlert)
+      }
+    console.log(Alerts);
+    this.setState({alert: Alerts})
+    }
+  
 
   saveState = () => {
     let currentState = {};
@@ -222,8 +270,6 @@ class App extends React.Component {
     });
   };
 
-  
-
   render() {
     return (
       <div className="App">
@@ -272,3 +318,4 @@ class App extends React.Component {
 }
 
 export default App;
+
