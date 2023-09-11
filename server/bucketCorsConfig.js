@@ -29,6 +29,6 @@ async function enableCorsRequests(bucketName) {
 }
 
 enableCorsRequests('operationdragonflydevelopment-donotdelete-pr-d6s1sx3xos4xaw');
-bucketName = process.env.bucketName;
+bucketName = 'operationdragonflydevelopment-donotdelete-pr-d6s1sx3xos4xaw';
 
 module.exports = bucketName;
