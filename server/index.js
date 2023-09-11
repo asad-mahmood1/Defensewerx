@@ -1,26 +1,25 @@
-require('dotenv').config({ path: 'server/.env' });
+// require('dotenv').config({ path: 'server/.env' });
+require('dotenv').config({ path: '.env' });
 const express = require('express');
 const path = require('path');
 const app = express();
 const port = process.env.port || 8080;
-const cors = require('cors');
-
-const { bucketRoutes } = require('./routes.js');
 
 app.use(express.static(path.join(__dirname, '../dist')));
 app.use(express.json());
 app.use(express.static('dist'));
-app.use(cors());
-app.use('/api/buckets', bucketRoutes);
 
-const Discovery = require('ibm-watson/discovery/v2');
-const { IamAuthenticator } = require('ibm-watson/auth');
+// const Discovery = require('ibm-watson/discovery/v2');
+// const { IamAuthenticator } = require('ibm-watson/auth');
 
-const discoveryClient = new Discovery({
-  authenticator: new IamAuthenticator({ apikey: '_bS88b3IHD6v5nNzvS5Rr0ZVxAe6bKCtXa5owf7b2NhA' }),
-  version: '2020-08-30',
-  url: 'https://api.us-east.discovery.watson.cloud.ibm.com/instances/ba1faef3-e1f0-4ae5-b658-808cb6a00346',
-});
+// const discoveryClient = new Discovery({
+//   authenticator: new IamAuthenticator({ apikey: '_bS88b3IHD6v5nNzvS5Rr0ZVxAe6bKCtXa5owf7b2NhA' }),
+//   authenticator: new IamAuthenticator({ apikey: 'C7AsMLQoLA44GypizMAjfAfKOT_6eX9PiBU-5cVRvEPI' }),
+//   version: '2020-08-30',
+//   url: 'https://api.us-east.discovery.watson.cloud.ibm.com/instances/ba1faef3-e1f0-4ae5-b658-808cb6a00346',
+// });
+
+
 
 /*var ibm = require('ibm-cos-sdk');
 var util = require('util');
@@ -34,6 +33,50 @@ var config = {
 
 var cos = new ibm.S3(config);*/
 
+/*
+var ibm = require('ibm-cos-sdk');
+var config = {
+  endpoint: process.env.cos_endpoint,
+//   endpoint: new ibm.Endpoint(process.env.cos_endpoint),
+  apiKeyId: process.env.cos_apikey,
+  ibmAuthEndpoint: process.env.cos_ibm_auth_endpoint,
+  serviceInstanceId: process.env.cos_resource_instance_id,
+  signatureVersion: 'iam',
+  s3ForcePathStyle: true
+};
+var cos = new ibm.S3(config);
+*/
+
+/*
+function getItem(bucketName, itemName) {
+    console.log(`Retrieving item from bucket: ${bucketName}, key: ${itemName}`);
+    return cos.getObject({
+        Bucket: process.env.bucketName,
+        Key: process.env.itemName
+    }).promise()
+    .then((data) => {
+        if (data != null) {
+            console.log('File Contents: ' + Buffer.from(data.Body).toString());
+        }
+    })
+    .catch((e) => {
+        console.error(`ERROR: ${e.code} - ${e.message}\n`);
+    });
+}
+*/
+
+// var ibm = require('ibm-cos-sdk');
+// var util = require('util');
+
+// var config = {
+//   endpoint: process.env.endpoint,
+//   apiKeyId: process.env.cosapi,
+//   serviceInstanceId: process.env.token,
+// };
+
+// var cos = new ibm.S3(config);
+
+/*
 app.get('/search', function (req, res) {
   discoveryClient
     .query({
@@ -61,6 +104,7 @@ app.get('/search', function (req, res) {
       console.log(err);
     });
 });
+*/
 
 // app.get('/alert', function (req, res) {
 //   function doCreateBucket() {
@@ -165,5 +209,18 @@ app.get('/search', function (req, res) {
 //     }
 //   );
 // });
+
+
+//API routes
+const indexRoute = require('./routes.js');
+
+//express middleware routes
+app.use('/', indexRoute);
+
+//simple error handling which should have been made more robust
+app.use((err, req, res, next) => {
+  // res.json(err.stack);
+  res.json(err);
+});
 
 app.listen(port, () => console.log(`Server is running on ${port}...`));
