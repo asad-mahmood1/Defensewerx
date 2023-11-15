@@ -22,8 +22,8 @@
 
 .Header_Text {
   position: relative;
-  top: -40%;
-  left: 5px;
+  top: 30%;
+  left: 10px;
   color: white;
   font-size: 80%;
   font-weight: bold;
@@ -353,3 +353,4 @@
   color: #000000;
   font-size: x-small;
 }
+
